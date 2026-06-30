@@ -98,7 +98,7 @@ void processEvents(sf::Window &window, Game &game, Render &render, uint32_t &max
             (localPosition.x - render.shift.x) / conf::cell_size.x / render.scale,
             (localPosition.y - render.shift.y) / conf::cell_size.y / render.scale
         };
-        sf::Vector2i pos;
+        coord pos;
         if (real_pos.x < 0) pos.x = real_pos.x - 1.0f;
         else pos.x = real_pos.x;
         if (real_pos.y < 0) pos.y = real_pos.y - 1.0f;
@@ -108,10 +108,9 @@ void processEvents(sf::Window &window, Game &game, Render &render, uint32_t &max
             // if the cell is dead, make it alive
             game.addCell(pos);
         }
-        else if (std::find(game.alive.begin(), game.alive.end(), pos) != game.alive.end()) {
+        else {
             // if the cell is alive, make it dead
-            game.alive.erase(std::find(game.alive.begin(), game.alive.end(), pos));
-            game.computed.erase(std::find(game.computed.begin(), game.computed.end(), pos));
+            game.killCell(pos);
         }
     }
 }

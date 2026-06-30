@@ -23,7 +23,10 @@ public:
     void render(sf::RenderWindow& window) {
         sf::RectangleShape shape{conf::cell_size};
 
-        for (const coord& cell : game.alive) {
+        unsigned int alive_size = game.alive.size();
+        for (unsigned int i = 0; i < alive_size; i++) {
+            coord cell = game.alive.get(i);
+
             sf::Vector2f position{
                 cell.x * conf::cell_size.x * scale + shift.x,
                 cell.y * conf::cell_size.y * scale + shift.y
