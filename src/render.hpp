@@ -5,6 +5,14 @@
 #include "game.hpp"
 
 struct Render {
+private:
+    sf::Font font{"/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"};
+
+    sf::Clock clock;
+    int frameCount = 0;
+    int currentFrameCount = 0;
+
+public:
     Game& game;
 
     float scale = conf::initial_zoom;
@@ -27,11 +35,26 @@ struct Render {
             window.draw(shape);
 
             shape.setScale({scale*conf::cell_in_ratio, scale*conf::cell_in_ratio});
-            
+
             shape.setPosition(position + conf::cell_size * scale * (1-conf::cell_in_ratio) / 2.0f);
 
             shape.setFillColor({200, 200, 200});
             window.draw(shape);
         }
+        if (clock.getElapsedTime().asSeconds() >= 1.0f){
+            frameCount = currentFrameCount;
+            currentFrameCount = 0;
+            clock.restart();
+        } else {
+            currentFrameCount++;
+        }
+        sf::Text text {
+            font,
+            "fps: " + std::to_string(frameCount),
+            12
+        };
+        text.setFillColor(sf::Color::White);
+        text.setPosition({10, static_cast<float>(conf::window_size.y) - 20});
+        window.draw(text);
     }
 };
