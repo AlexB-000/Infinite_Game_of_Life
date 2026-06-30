@@ -12,6 +12,9 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/fonts
+    DESTINATION ${CMAKE_BINARY_DIR}/bin)
+
 add_executable(inf_game_of_life src/main.cpp)
 target_sources(inf_game_of_life
 PRIVATE

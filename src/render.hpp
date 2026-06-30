@@ -6,7 +6,7 @@
 
 struct Render {
 private:
-    sf::Font font{"/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"};
+    sf::Font font{"fonts/LiberationSans-Regular.ttf"};
 
     sf::Clock clock;
     int frameCount = 0;
